@@ -25,15 +25,18 @@ class RRuleGenerator extends StatelessWidget {
   final instancesController = TextEditingController(text: '1');
   final List<Period> periodWidgets = [];
   late final ExcludeDates? _excludeDatesPicker;
+  final InputDecoration? overrideInputDecoration;
 
-  RRuleGenerator(
-      {super.key,
-      RRuleGeneratorConfig? config,
-      this.textDelegate = const EnglishRRuleTextDelegate(),
-      this.onChange,
-      this.initialRRule = '',
-      this.withExcludeDates = false,
-      this.initialDate}) {
+  RRuleGenerator({
+    super.key,
+    RRuleGeneratorConfig? config,
+    this.overrideInputDecoration,
+    this.textDelegate = const EnglishRRuleTextDelegate(),
+    this.onChange,
+    this.initialRRule = '',
+    this.withExcludeDates = false,
+    this.initialDate,
+  }) {
     this.config = config ?? RRuleGeneratorConfig();
 
     periodWidgets.addAll([
@@ -43,6 +46,7 @@ class RRuleGenerator extends StatelessWidget {
         valueChanged,
         initialRRule,
         initialDate ?? DateTime.now(),
+        overrideInputDecoration: overrideInputDecoration,
       ),
       Monthly(
         this.config,
@@ -50,12 +54,14 @@ class RRuleGenerator extends StatelessWidget {
         valueChanged,
         initialRRule,
         initialDate ?? DateTime.now(),
+        overrideInputDecoration: overrideInputDecoration,
       ),
       Weekly(
         this.config,
         textDelegate,
         valueChanged,
         initialRRule,
+        overrideInputDecoration: overrideInputDecoration,
         initialDate ?? DateTime.now(),
       ),
       Daily(
@@ -64,6 +70,7 @@ class RRuleGenerator extends StatelessWidget {
         valueChanged,
         initialRRule,
         initialDate ?? DateTime.now(),
+        overrideInputDecoration: overrideInputDecoration,
       )
     ]);
     _excludeDatesPicker = withExcludeDates
@@ -146,6 +153,7 @@ class RRuleGenerator extends StatelessWidget {
                   title: config.headerEnabled ? textDelegate.repeat : null,
                   style: config.headerTextStyle,
                   child: buildDropdown(
+                    context: context,
                     child: DropdownButton(
                       isExpanded: true,
                       value: period,
@@ -181,6 +189,7 @@ class RRuleGenerator extends StatelessWidget {
                               title: textDelegate.end,
                               style: config.textStyle,
                               child: buildDropdown(
+                                context: context,
                                 child: ValueListenableBuilder(
                                   valueListenable: countTypeNotifier,
                                   builder: (context, countType, child) =>
@@ -238,6 +247,8 @@ class RRuleGenerator extends StatelessWidget {
                                         instancesController,
                                         valueChanged,
                                         config: config,
+                                        overrideInputDecoration:
+                                            overrideInputDecoration,
                                       ),
                                     ),
                                   );
@@ -275,8 +286,9 @@ class RRuleGenerator extends StatelessWidget {
                                             }
                                           },
                                           style: OutlinedButton.styleFrom(
-                                            side: const BorderSide(
-                                              color: Colors.black,
+                                            side: BorderSide(
+                                              color: Theme.of(context)
+                                                  .dividerColor,
                                             ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -293,7 +305,10 @@ class RRuleGenerator extends StatelessWidget {
                                                 textDelegate.locale,
                                               ).format(pickedDate),
                                               style: config.textStyle.copyWith(
-                                                  color: Colors.black),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onBackground,
+                                              ),
                                               textAlign: TextAlign.center,
                                             ),
                                           ),

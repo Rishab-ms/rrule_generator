@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-Container buildDropdown({required Widget child}) {
+Container buildDropdown({
+  required Widget child,
+  required BuildContext context,
+}) {
   return Container(
     decoration: BoxDecoration(
-      border: Border.all(),
+      border: Border.all(
+        color: Theme.of(context).dividerColor,
+      ),
       borderRadius: BorderRadius.circular(8),
     ),
     width: double.maxFinite,
@@ -22,13 +28,13 @@ Column buildElement({
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      if (title != null)
-        Text(
-          title,
-          style: style,
-        )
-      else
-        Container(),
+      // if (title != null)
+      //   Text(
+      //     title,
+      //     style: style,
+      //   )
+      // else
+      Container(),
       child,
     ],
   );
@@ -58,7 +64,10 @@ Widget buildToggleItem({
               style: style.copyWith(fontSize: 16),
             ),
           ),
-          Switch(value: value, onChanged: onChanged),
+          Switch.adaptive(
+            value: value,
+            onChanged: onChanged,
+          ),
         ],
       ),
     );
@@ -74,7 +83,10 @@ Widget buildToggleItem({
                 style: style.copyWith(fontSize: 16),
               ),
             ),
-            Switch(value: value, onChanged: onChanged),
+            Switch.adaptive(
+              value: value,
+              onChanged: onChanged,
+            ),
           ],
         ),
         child,
