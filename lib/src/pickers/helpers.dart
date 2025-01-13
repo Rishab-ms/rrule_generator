@@ -54,43 +54,21 @@ Widget buildToggleItem({
   required bool value,
   required TextStyle style,
 }) {
-  if (!value) {
-    return buildContainer(
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: style.copyWith(fontSize: 16),
-            ),
-          ),
-          Switch.adaptive(
-            value: value,
-            onChanged: onChanged,
-          ),
-        ],
-      ),
-    );
-  }
-  return buildContainer(
-    child: Column(
-      children: [
-        Row(
+  return AnimatedSize(
+      duration: Durations.medium1,
+      child: buildContainer(
+        child: Column(
           children: [
-            Expanded(
-              child: Text(
+            SwitchListTile.adaptive(
+              value: value,
+              onChanged: onChanged,
+              title: Text(
                 title,
                 style: style.copyWith(fontSize: 16),
               ),
             ),
-            Switch.adaptive(
-              value: value,
-              onChanged: onChanged,
-            ),
+            if (value == true) child
           ],
         ),
-        child,
-      ],
-    ),
-  );
+      ));
 }
