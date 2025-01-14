@@ -42,9 +42,9 @@ class _IntervalPickerState extends State<IntervalPicker> {
             extentOffset: widget.controller.text.length,
           );
         },
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-        ],
+        // inputFormatters: [
+        //   FilteringTextInputFormatter.digitsOnly,
+        // ],
         onSubmitted: (_) {
           final currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
