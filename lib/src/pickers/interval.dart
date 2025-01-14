@@ -36,6 +36,12 @@ class _IntervalPickerState extends State<IntervalPicker> {
                 ),
               ),
             ),
+        onTap: () {
+          widget.controller.selection = TextSelection(
+            baseOffset: 0,
+            extentOffset: widget.controller.text.length,
+          );
+        },
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
         ],
