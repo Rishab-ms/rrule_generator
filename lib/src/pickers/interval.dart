@@ -36,7 +36,6 @@ class _IntervalPickerState extends State<IntervalPicker> {
                 ),
               ),
             ),
-
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
         ],
@@ -46,6 +45,6 @@ class _IntervalPickerState extends State<IntervalPicker> {
             currentFocus.unfocus();
           }
         },
-        // onChanged: (_) => widget.onChange(),
+        onChanged: (_) => widget.onChange(),
       );
 }
