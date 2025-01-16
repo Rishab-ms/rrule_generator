@@ -36,21 +36,16 @@ class _IntervalPickerState extends State<IntervalPicker> {
                 ),
               ),
             ),
-        onTap: () {
-          widget.controller.selection = TextSelection(
-            baseOffset: 0,
-            extentOffset: widget.controller.text.length,
-          );
-        },
-        // inputFormatters: [
-        //   FilteringTextInputFormatter.digitsOnly,
-        // ],
+
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         onSubmitted: (_) {
           final currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
         },
-        onChanged: (_) => widget.onChange(),
+        // onChanged: (_) => widget.onChange(),
       );
 }
