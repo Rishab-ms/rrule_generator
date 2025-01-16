@@ -24,7 +24,7 @@ class IntervalPicker extends StatefulWidget {
 class _IntervalPickerState extends State<IntervalPicker> {
   @override
   Widget build(BuildContext context) => TextField(
-        controller: widget.controller,
+        // controller: widget.controller,
         keyboardType: TextInputType.number,
         decoration: widget.overrideInputDecoration ??
             InputDecoration(
@@ -39,12 +39,17 @@ class _IntervalPickerState extends State<IntervalPicker> {
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
         ],
-        onSubmitted: (_) {
+        onSubmitted: (String _) {
           final currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
         },
-        onChanged: (_) => widget.onChange(),
+        onChanged: (String text) {
+          TextSelection previousSelection = widget.controller.selection;
+          widget.controller.text = text;
+          widget.controller.selection = previousSelection;
+          widget.onChange();
+        },
       );
 }

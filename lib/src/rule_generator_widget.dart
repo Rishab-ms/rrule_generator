@@ -22,12 +22,7 @@ class RRuleGenerator extends StatelessWidget {
   final frequencyNotifier = ValueNotifier(0);
   final countTypeNotifier = ValueNotifier(0);
   final pickedDateNotifier = ValueNotifier(DateTime.now());
-  final instancesController = TextEditingController.fromValue(
-    TextEditingValue(
-      text: '1',
-      selection: TextSelection.collapsed(offset: '1'.length),
-    ),
-  );
+  final instancesController = TextEditingController(text: '1');
   final List<Period> periodWidgets = [];
   late final ExcludeDates? _excludeDatesPicker;
   final InputDecoration? overrideInputDecoration;
